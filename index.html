@@ -1,386 +1,735 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>十大通用能力探索</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>十大通用能力探索</title>
 
 <!-- 基本資訊 -->
-<meta name="version" content="1.0">
+<meta name="version" content="3.0">
 <meta name="author" content="莊士勇 Steven">
-<meta name="description" content="本測驗幫助使用者探索自己的十大通用能力，並根據結果提供個性化的職業發展與職涯規劃建議。">
-<meta name="keywords" content="通用能力,職涯發展,自我探索,個人強項,職業規劃,十大能力,能力強項">
+<meta name="description" content="從 64 張通用能力卡中，探索你的能力，並排出順序。">
+<meta name="keywords" content="通用能力, 能力強項, 職涯發展, 自我探索, 生涯規劃">
 
 <!-- 社群分享設定 -->
 <meta property="og:title" content="十大通用能力探索">
-<meta property="og:description" content="探索您的十大通用能力，發現個人優勢並獲得職業發展與生涯規劃的建議。">
-<meta property="og:image" content="ability_og_image.png">
+<meta property="og:description" content="從 64 張通用能力卡中，探索你的能力，並排出順序。">
 <meta property="og:type" content="website">
-<meta property="og:updated_time" content="2025-05-13T00:00:00Z">
 
-<!-- 設置網站的縮略圖 -->
-<link rel="icon" href="ability_icon.ico" type="image/x-icon" />
+<!-- 網站小圖示 -->
+<link rel="icon" href="ability_icon.ico" type="image/x-icon">
 
-<!-- 釋出日期 -->
-<meta property="article:published_time" content="2025-05-13T00:00:00Z">
-<meta property="article:modified_time" content="2025-05-13T00:00:00Z">
+<style>
+/* ===== 共用色彩與字體（之後四大測驗統一使用） ===== */
+:root {
+  --bg: #f6f5f2;          /* 頁面底色：溫和米白 */
+  --surface: #ffffff;     /* 卡片、區塊底色 */
+  --text: #2b2b2b;        /* 主要文字 */
+  --muted: #6b6b6b;       /* 次要文字 */
+  --line: #e2e0da;        /* 分隔線、外框 */
+  --brand: #35628E;       /* 主色：按鈕 */
+  --brand-dark: #284c6e;
+  --radius: 14px;
+  --font: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
 
-  <style>
-/* 設定整體網頁的基本字型、外距、內距與背景顏色 */
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
 body {
-  font-family: Arial, sans-serif; /* 使用 Arial 無襯線字體，若無則使用系統預設的 sans-serif */
-  margin: 0;                      /* 移除整體頁面的外距，避免預設空白 */
-  padding: 0;                     /* 移除整體頁面的內距 */
-  background-color: #f4f4f9;      /* 設定頁面背景為淡灰偏紫的顏色，給人柔和的感覺 */
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.5;
 }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
 
-/* 頁面主標題 h1 的樣式 */
-h1 {
-  text-align: center;             /* 文字置中 */
-  padding: 20px 0;                /* 上下內距 20px，左右為 0 */
-  margin: 0;                      /* 移除外距 */
-  background-color: #4CAF50;      /* 設定背景色為綠色 */
-  color: white;                   /* 字體為白色 */
-  font-size: 24px;                /* 字體大小為 24px */
-  border-bottom: 4px solid #388E3C; /* 底部加一條深綠色的邊框，增加層次感 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 增加陰影效果，讓標題有浮出來的感覺 */
+/* ===== 頁首與步驟指示 ===== */
+header { padding: 20px 0 8px; text-align: center; }
+h1 { font-size: 26px; margin: 0 0 12px; letter-spacing: 1px; }
+.steps { display: flex; justify-content: center; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 15px; color: var(--muted); }
+.steps li { padding: 4px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+.steps li.on { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 600; }
+
+/* ===== 指導語 ===== */
+.guide {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 18px;
+  text-align: center;
 }
+.guide strong { color: var(--brand); }
+.guide small { display: block; color: var(--muted); font-size: 15px; margin-top: 4px; }
 
-/* 容器：用來排列所有卡片 */
-.card-container {
-  display: flex;                 /* 使用彈性盒模型排版 */
-  flex-wrap: wrap;              /* 當空間不足時允許換行 */
-  gap: 12px;                    /* 卡片之間的間距為 20px */
-  padding: 12px;                /* 容器內距 20px */
-  justify-content: center;     /* 所有卡片在容器內置中對齊 */
-}
+/* ===== 挑選：牌卡格子（手機兩欄） ===== */
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (min-width: 600px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 820px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 
-/* 每一張卡片的樣式 */
 .card {
-  width: 200px;                 /* 固定卡片寬度為 200px （PC 與 iPad）*/
-  border: 1px solid #ddd;       /* 外框為淺灰色細線 */
-  padding: 8px 10px;            /* 上下內距 8px、左右 10px */
-  border-radius: 8px;           /* 圓角 8px，讓卡片邊緣較柔和 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加細緻陰影效果 */
-  background-color: #fff;       /* 背景為白色 */
-  cursor: pointer;              /* 滑鼠移上去變成手指圖示 */
-  transition: transform 0.2s ease; /* 定義變形動畫效果（滑鼠 hover） */
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font: inherit;
+  color: var(--text);
+  background: var(--tint);
+  border: 2px solid var(--tint);
+  border-top: 6px solid var(--color);
+  border-radius: 12px;
+  padding: 12px 8px 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .12s, background .12s;
 }
-
-
-/* 📱 手機直式（小於 440px）：一排兩張 */
-@media (max-width: 440px) and (orientation: portrait) {
-  .card {
-    flex: 1 1 calc(45% - 12px);
-  }
+.card:active { transform: scale(.97); }
+.card .title { display: block; font-size: 21px; font-weight: 700; color: var(--ink); }
+.card .kw { display: block; font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+.kw span { white-space: nowrap; } /* 關鍵字不從中間斷行 */
+.card.selected { background: var(--color); border-color: var(--color); }
+.card.selected .title, .card.selected .kw { color: var(--on); }
+.card .check {
+  position: absolute; top: 6px; right: 6px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; color: var(--ink);
+  font-size: 14px; font-weight: 700; line-height: 22px;
+  display: none;
 }
+.card.selected .check { display: block; }
 
-/* 📱 手機橫式：一排三張 */
-@media (max-width: 956px) and (orientation: landscape) {
-  .card {
-    flex: 1 1 calc(30% - 12px);
-  }
+/* ===== 排名清單（排序與結果共用） ===== */
+.rank-list { list-style: none; margin: 0; padding: 0; }
+.rank-item {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%;
+  font: inherit; text-align: left; color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 8px solid var(--color);
+  border-radius: 12px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
 }
+button.rank-item { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.rank { flex: 0 0 30px; font-size: 20px; font-weight: 700; color: var(--muted); text-align: center; }
+.rank-item .body { flex: 1; min-width: 0; }
+.rank-item .title { font-size: 20px; font-weight: 700; color: var(--ink); }
+.rank-item .kw { font-size: 14px; color: var(--muted); }
+.rank-item .undo { font-size: 13px; color: var(--muted); white-space: nowrap; }
 
+/* 前三名：卡片較大、用牌卡淡色當底 */
+.rank-item.top { background: var(--tint); padding: 12px 10px; }
+.rank-item.top .rank { font-size: 24px; color: var(--ink); }
+.rank-item.top .title { font-size: 23px; }
+.rank-item.top .kw { font-size: 15px; }
 
-/* 滑鼠移到卡片上時的動畫效果 */
-.card:hover {
-  transform: scale(1.03);       /* 放大 3%，提供微互動感受 */
+/* 還沒排的空格 */
+.slot {
+  display: flex; align-items: center; gap: 10px;
+  border: 2px dashed #cfccc4; border-radius: 12px;
+  padding: 10px; margin-bottom: 8px;
+  color: #a9a69e; font-size: 15px;
 }
+.slot.next { border-color: var(--brand); color: var(--brand); }
 
-/* 第二層標題 h2 樣式（用於分段或小標） */
-h2 {
-  padding-left: 20px;           /* 左側內距 20px */
-  font-size: 20px;              /* 字體大小為 20px */
-  text-align: center;           /* 文字置中 */
-}
+/* 第 3、4 名之間與第 10、11 名之間的細線 */
+.divider { height: 0; border-top: 1px solid #b9b6ae; margin: 14px 4px 16px; }
 
-/* 水平線樣式，用於分隔區塊 */
-hr {
-  border: none;                 /* 移除預設邊框樣式 */
-  border-top: 2px solid #ccc;   /* 改為上方的灰色線條 */
-  margin: 20px 0 10px;          /* 上 20px、下 10px 的外距 */
+/* 各類別張數 */
+.tally-title { font-size: 18px; margin: 22px 0 8px; text-align: center; }
+.tally { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
+.tally-item {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 8px 10px; font-size: 15px;
 }
+.tally-item b { font-size: 18px; }
 
-/* 顯示已選擇數量的樣式 */
-#selectedCount {
-  color: #388E3C;               /* 深綠色字體 */
-  font-weight: bold;           /* 加粗文字 */
-}
+/* 待排的牌卡 */
+.pool-title { font-size: 16px; color: var(--muted); margin: 18px 0 8px; text-align: center; }
+.pool-title b { color: var(--brand); }
 
-/* 卡片上顯示的序號（例如：#1、#2）樣式 */
-.card-number {
-  font-weight: bold;           /* 加粗文字 */
-  margin-bottom: 5px;          /* 下方間距 5px */
-  color: #4CAF50;              /* 使用主題綠色 */
-}
+/* ===== 結果 ===== */
+.result-meta { text-align: center; color: var(--muted); font-size: 16px; margin: 4px 0 14px; }
+.notice { text-align: center; color: var(--muted); font-size: 15px; margin: 12px 0; }
 
-/* 完成按鈕樣式 */
-.finish-button {
-  display: block;              /* 設定為區塊元素 */
-  margin: 20px auto;           /* 上下間距 20px，左右自動置中 */
-  padding: 10px 20px;          /* 上下 10px、左右 20px 的內距 */
-  font-size: 16px;             /* 字體大小 16px */
-  background-color: #4CAF50;   /* 按鈕底色為主題綠色 */
-  color: white;                /* 字體為白色 */
-  border: none;                /* 移除邊框 */
-  border-radius: 6px;          /* 圓角 6px */
-  cursor: pointer;             /* 滑鼠移過去顯示手指圖示 */
-}
+/* ===== 說明頁 ===== */
+.intro { text-align: center; padding: 8px 0 4px; }
+.intro .desc { font-size: 18px; margin: 12px 0; }
+.intro .flow { font-size: 16px; color: var(--brand); font-weight: 600; margin: 12px 0; }
+.intro .note { font-size: 15px; color: var(--muted); margin: 12px 0 22px; }
+.intro .start-btn { display: block; width: 100%; margin: 0 0 10px; padding: 16px; font-size: 18px; }
+.more-list { margin-top: 10px; }
+.link-btn { font: inherit; font-size: 15px; color: var(--muted); background: none; border: none; text-decoration: underline; padding: 6px; cursor: pointer; }
+.result-mode { text-align: center; font-size: 17px; font-weight: 600; margin: 4px 0 0; }
 
-/* 滑鼠移到按鈕時的顏色變化 */
-.finish-button:hover {
-  background-color: #45a049;   /* 改為稍微深一點的綠色 */
+/* ===== 按鈕 ===== */
+.btn {
+  border: none; border-radius: 12px;
+  padding: 12px 18px;
+  font: inherit; font-size: 17px; font-weight: 600;
+  cursor: pointer;
+  background: var(--brand); color: #fff;
 }
+.btn:disabled { background: #b9c3cd; cursor: default; }
+.btn.ghost { background: var(--surface); color: var(--text); border: 1px solid var(--line); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 16px 0; }
 
-/* 最終結果顯示區域的容器樣式 */
-#finalResult {
-  padding: 20px;               /* 內距 20px */
-  text-align: center;          /* 整體文字置中 */
+/* ===== 底部固定列（手機上隨時看得到已選張數） ===== */
+.bar {
+  position: sticky; bottom: 0;
+  margin: 16px -16px 0;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255,255,255,.96);
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
 }
+.bar .count { flex: 1; font-size: 15px; color: var(--muted); }
+.bar .count b { font-size: 20px; color: var(--text); }
 
-/* 結果區塊內的標題樣式 */
-#finalResult h3 {
-  margin-bottom: 20px;         /* 標題下方的間距 */
+/* ===== 結果圖片視窗 ===== */
+.overlay {
+  position: fixed; inset: 0; z-index: 10;
+  background: rgba(0,0,0,.6);
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
 }
+.overlay .panel {
+  background: var(--surface); border-radius: var(--radius);
+  max-width: 480px; width: 100%; max-height: 90vh; overflow: auto;
+  padding: 16px; text-align: center;
+}
+.overlay img { width: 100%; border: 1px solid var(--line); border-radius: 8px; }
 
-/* 結果內的有序與無序清單統一設定 */
-#finalResult ol, #finalResult ul {
-  text-align: left;            /* 將項目文字靠左對齊 */
-  margin: 0 auto;              /* 左右自動置中，搭配 max-width 限制寬度 */
-  padding-left: 20px;          /* 左側縮排 20px，保持清單結構 */
-  max-width: 700px;            /* 限制清單最大寬度，避免過寬影響閱讀 */
-}
-
-/* 清單每一項的間距設定 */
-#finalResult li {
-  margin-bottom: 10px;         /* 每一項下方間距 10px，增加可讀性 */
-}
-
-/* 頁尾樣式：簡單說明、版權、聯絡資訊等可放這裡 */
-.page-footer {
-  background-color: #e8f5e9;   /* 使用非常淡的綠色作為背景 */
-  color: #2e7d32;              /* 使用較深的綠色作為文字顏色 */
-  text-align: center;          /* 文字置中 */
-  padding: 15px 0;             /* 上下內距 15px */
-  font-size: 14px;             /* 字體大小較小，適合頁尾資訊 */
-  border-top: 2px solid #c8e6c9; /* 頁尾上方加一道分隔線，為淡綠色 */
-  margin-top: 40px;            /* 與上方內容保持適當距離 */
-}
-  </style>
+/* ===== 頁尾 ===== */
+footer { text-align: center; color: var(--muted); font-size: 14px; padding: 24px 0 32px; line-height: 1.8; }
+footer a { color: var(--muted); }
+</style>
 </head>
 <body>
-<h1>十大通用能力探索</h1>
 
-<h2>通用能力選擇區</h2>
-<div class="card-container" id="cardContainer"></div>
+<div class="wrap">
+  <header>
+    <h1>十大通用能力探索</h1>
+    <ol class="steps" id="steps">
+      <li data-step="pick">1 挑選</li>
+      <li data-step="sort">2 排序</li>
+      <li data-step="result">3 結果</li>
+    </ol>
+  </header>
 
-<hr> <!-- 已選擇區的分隔線 -->
-<h2>已選擇的能力區 | 已選擇 <span id="selectedCount">0</span> 張</h2>
-<div class="card-container" id="selectedContainer"></div>
+  <main id="app"></main>
 
-<hr> <!-- 已排序區的分隔線 -->
-<h2 id="sortedHeader">已排序的能力區 | 已排序 <span id="sortedCount">0</span> 張</h2>
-<div class="card-container" id="sortedContainer"></div>
+  <!-- 版權宣告 -->
+  <footer>
+    本能力探索參考 OECD 關鍵能力與教育部核心素養架構，<br>
+    並由 莊士勇 職涯諮詢師 依實務經驗優化設計。<br>
+    &copy; 2025–2026 GCDF全球職涯發展師 莊士勇 設計<br>
+    <a href="classic.html">舊版</a>
+  </footer>
+</div>
 
-<!-- 完成排序按鈕 -->
-<button class="finish-button" id="submitSortButton">完成排序</button>
-
-<hr> <!-- 完成排序按鈕下方的分隔線 -->
-<div id="finalResult" style="padding: 20px;"></div>
-
-<footer class="page-footer">
-  本能力探索參考 OECD 關鍵能力與教育部核心素養架構，<BR>並由 莊士勇 職涯諮詢師 依實務經驗優化設計。<BR>&copy; 2025 莊士勇｜GCDF全球職涯發展師
-</footer>
-
-<!-- 載入資料來源 -->
+<!-- 載入牌卡資料 -->
 <script src="ability-cards.js"></script>
 
 <script>
-  const sortedCards = [];
+// ===== 作答進度 =====
+// 只暫存在使用者自己的瀏覽器（不會上傳），方便不小心重新整理時接著做；超過 24 小時自動作廢。
+const STORAGE_KEY = '10A-progress';
+const EXPIRE_MS = 24 * 60 * 60 * 1000;
+const SUGGESTED = 10;
 
-  document.addEventListener("DOMContentLoaded", function () {
-    renderAbilityCards(abilityCards);
+const cardById = {};
+// 能力卡沒有編號也沒有顏色：依資料順序編號，全部使用同一組顏色
+const THEME = { color: '#2F7D6B', tint: '#E6F2EF' };
+const cards = abilityCards.map((c, i) => ({ ...c, id: i + 1, color: THEME.color, tint: THEME.tint }));
+const CATEGORIES = [...new Set(cards.map(c => c.category))];
+cards.forEach(c => { cardById[c.id] = c; });
+
+// ===== 測驗設定：說明頁文字與指導語 =====
+const INTRO_DESC = '從 64 張通用能力卡中，<br>探索你的能力';
+const DEFAULT_MODE = 'want';
+const MODES = {
+  want: { html: '請選出你<strong>最想擁有</strong>的能力', text: '請選出你最想擁有的能力' },
+  have: { html: '請選出你<strong>目前擁有</strong>的能力', text: '請選出你目前擁有的能力' },
+  best: { html: '請選出你<strong>目前最拿手</strong>的能力', text: '請選出你目前最拿手的能力' }
+};
+const COMMON_SUB = '每個能力的意義，以你的定義為定義。';
+
+let state = loadState() || newState();
+
+function newState() {
+  return {
+    v: 3,
+    step: 'intro',
+    mode: DEFAULT_MODE, // 這次使用的指導語
+    deck: shuffle(allIds()), // 打散後的牌卡順序
+    selected: [],   // 已選的牌卡（依點選先後）
+    order: [],      // 排序後的牌卡
+    finishedAt: null,
+    savedAt: Date.now()
+  };
+}
+
+function allIds() {
+  return cards.map(c => c.id);
+}
+
+// 選好指導語後開始：重新打散牌卡
+function startRound(mode) {
+  state = newState();
+  state.mode = mode;
+  go('pick');
+}
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (!s || Date.now() - s.savedAt > EXPIRE_MS) return null;
+    if (s.v !== 3 || !MODES[s.mode]) return null; // 舊版的暫存格式
+    if (!s.deck || s.deck.length !== cards.length) return null; // 牌卡資料有更新時重來
+    return s;
+  } catch (e) { return null; }
+}
+
+function saveState() {
+  state.savedAt = Date.now();
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function clearState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ===== 畫面切換 =====
+const app = document.getElementById('app');
+
+function go(step) {
+  state.step = step;
+  saveState();
+  render();
+  window.scrollTo(0, 0);
+}
+
+function render() {
+  document.getElementById('steps').hidden = state.step === 'intro';
+  document.querySelectorAll('#steps li').forEach(li => {
+    li.classList.toggle('on', li.dataset.step === state.step);
+  });
+  if (state.step === 'intro') renderIntro();
+  else if (state.step === 'pick') renderPick();
+  else if (state.step === 'sort') renderSort();
+  else renderResult();
+}
+
+// 牌卡顏色交給 CSS 變數，每張卡片自己的顏色
+// 需要調深標題、或選取時改用深色字的顏色（能力卡目前不需要）
+const COLOR_TUNING = {};
+
+function inkOf(card) {
+  return (COLOR_TUNING[card.color] || {}).ink || card.color;
+}
+
+function colorStyle(card) {
+  const on = (COLOR_TUNING[card.color] || {}).on || '#fff';
+  return `--color:${card.color};--tint:${card.tint};--ink:${inkOf(card)};--on:${on}`;
+}
+
+function kwHtml(card) {
+  return card.description;
+}
+
+// ===== 說明頁：預設指導語一個大按鈕，其他指導語收起來 =====
+function renderIntro() {
+  const others = Object.keys(MODES).filter(m => m !== DEFAULT_MODE);
+  app.innerHTML = `
+    <div class="intro">
+      <p class="desc">${INTRO_DESC}</p>
+      <p class="flow">① 挑選 → ② 排序 → ③ 結果</p>
+      <p class="note">依照你的感覺選擇，沒有對錯<br>不需填寫個人資料，結果只存在你的手機</p>
+      <button type="button" class="btn start-btn" data-mode="${DEFAULT_MODE}">開始：${MODES[DEFAULT_MODE].text}</button>
+      <button type="button" class="link-btn" id="more">其他指導語 ▾</button>
+      <div class="more-list" id="moreList" hidden>
+        ${others.map(m => `<button type="button" class="btn ghost start-btn" data-mode="${m}">${MODES[m].text}</button>`).join('')}
+      </div>
+    </div>`;
+  app.querySelectorAll('.start-btn').forEach(btn => {
+    btn.onclick = () => startRound(btn.dataset.mode);
+  });
+  document.getElementById('more').onclick = () => {
+    const list = document.getElementById('moreList');
+    list.hidden = !list.hidden;
+  };
+}
+
+// ===== 第 1 步：挑選 =====
+function renderPick() {
+  const mode = MODES[state.mode];
+  app.innerHTML = `
+    <div class="guide">
+      ${mode.html}
+      <small>${mode.sub || ''}${COMMON_SUB}</small>
+      <small><button type="button" class="link-btn" id="toIntro">← 回說明頁</button></small>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="bar">
+      <div class="count" id="count"></div>
+      <button class="btn" id="toSort">下一步：排序</button>
+    </div>`;
+
+  document.getElementById('toIntro').onclick = () => {
+    if (state.selected.length && !confirm('回說明頁會清除目前已選的牌卡，確定嗎？')) return;
+    clearState();
+    state = newState();
+    go('intro');
+  };
+
+  const grid = document.getElementById('grid');
+  state.deck.forEach(id => {
+    const card = cardById[id];
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'card';
+    el.style.cssText = colorStyle(card);
+    el.innerHTML = `<span class="check">✓</span>
+      <span class="title">${card.title}</span>
+      <span class="kw">${kwHtml(card)}</span>`;
+    const sync = () => {
+      const on = state.selected.includes(id);
+      el.classList.toggle('selected', on);
+      el.setAttribute('aria-pressed', on);
+    };
+    el.onclick = () => {
+      if (state.selected.includes(id)) state.selected = state.selected.filter(x => x !== id);
+      else state.selected.push(id);
+      sync();
+      updateCount();
+      saveState();
+    };
+    sync();
+    grid.appendChild(el);
   });
 
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
+  document.getElementById('toSort').onclick = () => {
+    const n = state.selected.length;
+    // 未滿 10 張只提醒、不阻擋
+    if (n < SUGGESTED && !confirm(`目前選了 ${n} 張（建議約 ${SUGGESTED} 張），確定要進入排序嗎？`)) return;
+    // 保留之前排好的名次（取消選的拿掉），其餘留空格
+    const kept = state.order.filter(id => id !== null && state.selected.includes(id));
+    state.order = kept.concat(Array(n - kept.length).fill(null));
+    go('sort');
+  };
+  updateCount();
+}
 
-  function updateSelectedCount() {
-    const count = document.getElementById('selectedContainer').children.length;
-    document.getElementById('selectedCount').textContent = count;
-  }
+function updateCount() {
+  const n = state.selected.length;
+  const hint = n > SUGGESTED ? '已超過 10 張，也沒關係' : `建議約 ${SUGGESTED} 張`;
+  document.getElementById('count').innerHTML = `已選 <b>${n}</b> 張<br>${hint}`;
+  document.getElementById('toSort').disabled = n === 0;
+}
 
-  function createCardElement(card, fromContainer, toContainer, reverse = false) {
-    const cardElement = document.createElement('div');
-    cardElement.classList.add('card');
+// ===== 排名清單（排序與結果共用） =====
+// 第 3、4 名之間與第 10、11 名之間放細線
+function needsDivider(i) {
+  return i === 3 || i === 10;
+}
 
-    // 卡片標題
-    const cardTitle = document.createElement('h3');
-    cardTitle.textContent = card.title;
+// 結果只列出有排序的牌卡（排到 10 張就完成時，沒排的不列入）
+function rankedIds() {
+  return state.order.filter(id => id !== null);
+}
 
-    // 卡片說明
-    const cardDescription = document.createElement('p');
-    cardDescription.textContent = card.description;
+function rankRow(card, i, tag) {
+  const el = document.createElement(tag);
+  el.className = 'rank-item' + (i < 3 ? ' top' : '');
+  el.style.cssText = colorStyle(card);
+  el.innerHTML = `<span class="rank">${i + 1}</span>
+    <div class="body"><div class="title">${card.title}</div><div class="kw">${kwHtml(card)}</div></div>`;
+  return el;
+}
 
-    cardElement.appendChild(cardTitle);
-    cardElement.appendChild(cardDescription);
+function addDivider(list) {
+  const li = document.createElement('li');
+  li.className = 'divider';
+  li.setAttribute('aria-hidden', 'true');
+  list.appendChild(li);
+}
 
-    cardElement.addEventListener('click', () => {
-      fromContainer.removeChild(cardElement);
+// ===== 第 2 步：排序（依序點選） =====
+function renderSort() {
+  app.innerHTML = `
+    <div class="guide">
+      從最重要的開始，<strong>依序點選</strong>你的牌卡
+      <small>點錯了沒關係，點排好的牌卡就會退回。</small>
+    </div>
+    <ol class="rank-list" id="list"></ol>
+    <div class="pool-title" id="poolTitle"></div>
+    <div class="grid" id="pool"></div>
+    <div class="bar">
+      <button class="btn ghost" id="back">← 回上一步</button>
+      <div class="count" id="sortCount"></div>
+      <button class="btn" id="done">完成排序</button>
+    </div>`;
 
-      // 如果移動到排序區，則加入 sortedCards，重新排序
-      if (toContainer.id === 'sortedContainer') {
-        sortedCards.push(card);
-        const newCard = createSortedCard(card);
-        toContainer.appendChild(newCard);
-        updateSortedContainer(); // 更新已排序卡片
-      }
-      // 如果是從排序區回到已選擇區
-      else if (toContainer.id === 'selectedContainer') {
-        const index = sortedCards.findIndex(c => c.title === card.title);
-        if (index !== -1) {
-          sortedCards.splice(index, 1);
-          updateSortedContainer(); // 更新已排序卡片
-        }
+  document.getElementById('back').onclick = () => go('pick');
+  document.getElementById('done').onclick = () => {
+    state.finishedAt = Date.now();
+    go('result');
+  };
+  renderSortBody();
+}
 
-        const newCard = createCardElement(card, toContainer, document.getElementById('sortedContainer'));
-        toContainer.appendChild(newCard);
-        updateSelectedCount(); // 更新已選擇數量
-      } else {
-        const newCard = createCardElement(card, toContainer, fromContainer, !reverse);
-        toContainer.appendChild(newCard);
-      }
+function renderSortBody() {
+  const next = state.order.indexOf(null);   // 下一個要填的名次（-1 表示都排好了）
+  const unranked = state.selected.filter(id => !state.order.includes(id));
+  let lastFilled = -1;
+  state.order.forEach((id, i) => { if (id !== null) lastFilled = i; });
 
-      updateSelectedCount();
-    });
+  // 記下待排區的位置，重畫後捲回同一個位置，讓手指下面的牌卡不會跳走
+  const poolTitle = document.getElementById('poolTitle');
+  const anchorBefore = poolTitle.getBoundingClientRect().top;
+  const firstRender = !poolTitle.innerHTML;
 
-    return cardElement;
-  }
+  // 下方：還沒排的牌卡
+  if (next === -1) poolTitle.innerHTML = '全部排好了，可以按「完成排序」';
+  else if (next >= SUGGESTED) poolTitle.innerHTML = `已排好 ${next} 張，可以按「完成排序」<br>也可以繼續點選，放進第 <b>${next + 1}</b> 名`;
+  else poolTitle.innerHTML = `點一下，放進第 <b>${next + 1}</b> 名`;
+  const pool = document.getElementById('pool');
+  pool.innerHTML = '';
+  unranked.forEach(id => {
+    const card = cardById[id];
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'card';
+    el.style.cssText = colorStyle(card);
+    el.innerHTML = `<span class="title">${card.title}</span><span class="kw">${kwHtml(card)}</span>`;
+    el.onclick = () => {
+      state.order[state.order.indexOf(null)] = id;
+      saveState();
+      renderSortBody();
+    };
+    pool.appendChild(el);
+  });
 
-  function createSortedCard(card) {
-    const cardElement = document.createElement('div');
-    cardElement.classList.add('card');
-
-    const number = document.createElement('div');
-    number.classList.add('card-number');
-    number.textContent = sortedCards.indexOf(card) + 1 + '.';
-
-    const cardTitle = document.createElement('h3');
-    cardTitle.textContent = card.title;
-
-    const cardDescription = document.createElement('p');
-    cardDescription.textContent = card.description;
-
-    cardElement.appendChild(number);
-    cardElement.appendChild(cardTitle);
-    cardElement.appendChild(cardDescription);
-
-    cardElement.addEventListener('click', () => {
-      const index = sortedCards.findIndex(c => c.title === card.title);
-      if (index !== -1) {
-        sortedCards.splice(index, 1);
-        updateSortedContainer();
-
-        const selectedContainer = document.getElementById('selectedContainer');
-        const newCard = createCardElement(card, selectedContainer, document.getElementById('sortedContainer'));
-        selectedContainer.appendChild(newCard);
-        updateSelectedCount();
-      }
-    });
-
-    return cardElement;
-  }
-
-  function updateSortedContainer() {
-    const container = document.getElementById('sortedContainer');
-    container.innerHTML = '';  // 清空現有內容
-
-    sortedCards.forEach(card => {
-      const newCard = createSortedCard(card);
-      container.appendChild(newCard);
-    });
-
-    // 更新已排序的能力數量
-    document.getElementById('sortedCount').textContent = sortedCards.length;
-  }
-
-  function renderAbilityCards(cards) {
-    shuffleArray(cards);
-    const cardContainer = document.getElementById('cardContainer');
-    const selectedContainer = document.getElementById('selectedContainer');
-
-    cards.forEach(card => {
-      const cardElement = createCardElement(card, cardContainer, selectedContainer);
-      cardContainer.appendChild(cardElement);
-    });
-  }
-
-  // 完成排序按鈕功能
-  document.getElementById('submitSortButton').addEventListener('click', showFinalResult);
-
-  function showFinalResult() {
-    const resultContainer = document.getElementById('finalResult');
-    resultContainer.innerHTML = '';
-
-    const categoryCount = {};
-    const allCategories = []; // 用來存儲所有類別
-
-    const list = document.createElement('ol');
-
-    sortedCards.forEach(card => {
-      const item = document.createElement('li');
-      item.textContent = `${card.category} - ${card.title}：${card.description}`;
-      list.appendChild(item);
-
-      if (card.category) {
-        if (!categoryCount[card.category]) {
-          categoryCount[card.category] = 0;
-          allCategories.push(card.category); // 記錄所有的類別
-        }
-        categoryCount[card.category]++;
-      }
-    });
-
-    const resultTitle = document.createElement('h3');
-    resultTitle.textContent = '你排序後的能力清單：';
-    resultContainer.appendChild(resultTitle);
-    resultContainer.appendChild(list);
-
-    const categoryTitle = document.createElement('h3');
-    categoryTitle.textContent = '各類別張數統計：';
-    resultContainer.appendChild(categoryTitle);
-
-    const statsList = document.createElement('ul');
-
-    // 根據張數進行排序，從多到少
-    const sortedCategories = Object.keys(categoryCount).sort((a, b) => categoryCount[b] - categoryCount[a]);
-
-    // 顯示按張數排序後的類別
-    sortedCategories.forEach(category => {
+  // 上方：排名清單。只顯示排好的、中間退回的空格，以及下一個要放的位置
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  state.order.forEach((id, i) => {
+    if (id === null && i > lastFilled && i !== next) return;
+    if (needsDivider(i)) addDivider(list);
+    if (id === null) {
       const li = document.createElement('li');
-      li.textContent = `${category}：${categoryCount[category]} 張`;
-      statsList.appendChild(li);
-    });
+      li.className = 'slot' + (i === next ? ' next' : '');
+      li.innerHTML = `<span class="rank">${i + 1}</span>${i === next ? '下一張放這裡' : ''}`;
+      list.appendChild(li);
+      return;
+    }
+    const li = document.createElement('li');
+    const row = rankRow(cardById[id], i, 'button');
+    row.type = 'button';
+    row.insertAdjacentHTML('beforeend', '<span class="undo">退回</span>');
+    row.onclick = () => {
+      state.order[i] = null;
+      saveState();
+      renderSortBody();
+    };
+    li.appendChild(row);
+    list.appendChild(li);
+  });
 
-    // 顯示未出現的類別（張數為 0）
-    const uniqueCategories = [...new Set(allCategories)]; // 移除重複類別
-    const allPossibleCategories = ['📖學習成長能力', '📅自我管理能力', '💬溝通表達能力', '🤝人際關係能力', '🧑‍🤝‍🧑團隊合作能力', '🧩問題解決能力', '💡創新思維能力', '💻數位應用能力']; // 所有可能的類別
-    allPossibleCategories.forEach(category => {
-      if (!uniqueCategories.includes(category)) {
-        const li = document.createElement('li');
-        li.textContent = `${category}：0 張`; // 顯示張數為 0 的類別
-        statsList.appendChild(li);
-      }
-    });
+  const done = state.order.length - unranked.length;
+  document.getElementById('sortCount').innerHTML = `已排 <b>${done}</b> / ${state.order.length}`;
+  // 全部排完，或前 10 名都排好了，就可以完成
+  document.getElementById('done').disabled = next !== -1 && next < SUGGESTED;
 
-    resultContainer.appendChild(statsList);
-  }
+  if (!firstRender) window.scrollBy(0, poolTitle.getBoundingClientRect().top - anchorBefore);
+}
+
+// ===== 第 3 步：結果 =====
+function formatTime(ts) {
+  const d = new Date(ts);
+  const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}/${p(d.getMonth() + 1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function renderResult() {
+  app.innerHTML = `
+    <div class="result-mode">指導語：${MODES[state.mode].text}</div>
+    <div class="result-meta">完成時間：${formatTime(state.finishedAt)}・共 ${rankedIds().length} 張</div>
+    <ol class="rank-list" id="list"></ol>
+    <h2 class="tally-title">各類別張數</h2>
+    <div class="tally" id="tally"></div>
+    <div class="btn-row">
+      <button class="btn" id="save">下載結果圖片</button>
+    </div>
+    <div class="notice"><strong>請下載結果圖片或截圖本頁面，<br>請莊老師為您解讀喔</strong></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="back">← 修改排序</button>
+      <button class="btn ghost" id="restart">重新開始</button>
+    </div>`;
+
+  const list = document.getElementById('list');
+  rankedIds().forEach((id, i) => {
+    if (needsDivider(i)) addDivider(list);
+    list.appendChild(rankRow(cardById[id], i, 'li'));
+  });
+
+  document.getElementById('tally').innerHTML = categoryTally()
+    .map(([cat, count]) => `<div class="tally-item"><span>${cat}</span><b>${count}</b></div>`).join('');
+
+  document.getElementById('save').onclick = showImage;
+  document.getElementById('back').onclick = () => go('sort');
+  document.getElementById('restart').onclick = () => {
+    if (!confirm('確定要重新開始嗎？目前的選牌結果會被清除。')) return;
+    clearState();
+    state = newState();
+    go('intro');
+  };
+}
+
+// 各類別在排序結果中的張數（多到少，0 張的也列出）
+function categoryTally() {
+  const ids = rankedIds();
+  return CATEGORIES
+    .map(cat => [cat, ids.filter(id => cardById[id].category === cat).length])
+    .sort((a, b) => b[1] - a[1]);
+}
+
+// ===== 產生結果圖片（在手機上畫，不經過網路） =====
+function drawResultImage() {
+  const W = 1080, PAD = 60, ROW = 128, TOP_ROW = 156, GAP = 16, DIV = 44, HEAD = 280, FOOT = 120, TALLY = 330;
+  const ids = rankedIds();
+  const n = ids.length;
+  let H = HEAD + FOOT + TALLY;
+  ids.forEach((id, i) => {
+    H += (i < 3 ? TOP_ROW : ROW) + GAP + (needsDivider(i) ? DIV : 0);
+  });
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const font = (size, weight) => `${weight || 400} ${size}px ${getComputedStyle(document.body).fontFamily}`;
+
+  ctx.fillStyle = '#f6f5f2';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#2b2b2b';
+  ctx.font = font(56, 700);
+  ctx.fillText(document.title, W / 2, 100);
+  ctx.font = font(38, 700);
+  ctx.fillText(`指導語：${MODES[state.mode].text}`, W / 2, 170);
+  ctx.fillStyle = '#6b6b6b';
+  ctx.font = font(30);
+  ctx.fillText(`完成時間：${formatTime(state.finishedAt)}・共 ${n} 張`, W / 2, 225);
+
+  let y = HEAD;
+  ids.forEach((id, i) => {
+    const card = cardById[id];
+    const top = i < 3;
+    const h = top ? TOP_ROW : ROW;
+    // 細線
+    if (needsDivider(i)) {
+      ctx.fillStyle = '#b9b6ae';
+      ctx.fillRect(PAD + 8, y + DIV / 2 - 8, W - PAD * 2 - 16, 2);
+      y += DIV;
+    }
+    // 卡片底：前三名用牌卡淡色
+    ctx.fillStyle = top ? card.tint : '#ffffff';
+    roundRect(ctx, PAD, y, W - PAD * 2, h, 20);
+    ctx.fill();
+    // 左側色條
+    ctx.save();
+    roundRect(ctx, PAD, y, W - PAD * 2, h, 20);
+    ctx.clip();
+    ctx.fillStyle = card.color;
+    ctx.fillRect(PAD, y, 16, h);
+    ctx.restore();
+    // 名次
+    ctx.textAlign = 'center';
+    ctx.fillStyle = top ? inkOf(card) : '#6b6b6b';
+    ctx.font = font(top ? 54 : 44, 700);
+    ctx.fillText(String(i + 1), PAD + 70, y + h / 2 + (top ? 19 : 16));
+    // 標題與關鍵字
+    ctx.textAlign = 'left';
+    ctx.fillStyle = inkOf(card);
+    ctx.font = font(top ? 56 : 46, 700);
+    ctx.fillText(card.title, PAD + 130, y + (top ? 70 : 58));
+    ctx.fillStyle = '#6b6b6b';
+    ctx.font = font(top ? 32 : 28);
+    ctx.fillText(card.description, PAD + 130, y + (top ? 122 : 102));
+    y += h + GAP;
+  });
+
+  // 各類別張數（兩欄）
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#2b2b2b';
+  ctx.font = font(36, 700);
+  ctx.fillText('各類別張數', PAD, y + 50);
+  categoryTally().forEach(([cat, count], k) => {
+    const x = PAD + (k % 2) * (W - PAD * 2) / 2;
+    const ty = y + 110 + Math.floor(k / 2) * 52;
+    ctx.fillStyle = '#2b2b2b';
+    ctx.font = font(30);
+    ctx.fillText(cat, x, ty);
+    ctx.font = font(30, 700);
+    ctx.fillText(String(count), x + 400, ty);
+  });
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#6b6b6b';
+  ctx.font = font(26);
+  ctx.fillText('© 2025–2026 GCDF全球職涯發展師 莊士勇 設計', W / 2, H - 70);
+  ctx.fillText('shihyungchuang.github.io/10A', W / 2, H - 30);
+  return canvas;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function showImage() {
+  const url = drawResultImage().toDataURL('image/png');
+  const d = new Date(state.finishedAt);
+  const name = `十大通用能力_${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}.png`;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerHTML = `
+    <div class="panel">
+      <img src="${url}" alt="十大通用能力排序結果">
+      <p class="notice">手機請<strong>長按圖片</strong>儲存到相簿</p>
+      <div class="btn-row">
+        <a class="btn" href="${url}" download="${name}" style="text-decoration:none">下載圖片</a>
+        <button class="btn ghost" id="closeImg">關閉</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#closeImg').onclick = () => overlay.remove();
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+}
+
+render();
 </script>
-
 </body>
 </html>
