@@ -8,12 +8,12 @@
 <!-- 基本資訊 -->
 <meta name="version" content="3.0">
 <meta name="author" content="莊士勇 Steven">
-<meta name="description" content="從 64 張通用能力卡中，探索你的能力，並排出順序。">
+<meta name="description" content="從 63 張通用能力卡中，探索你的能力，並排出順序。">
 <meta name="keywords" content="通用能力, 能力強項, 職涯發展, 自我探索, 生涯規劃">
 
 <!-- 社群分享設定 -->
 <meta property="og:title" content="十大通用能力探索">
-<meta property="og:description" content="從 64 張通用能力卡中，探索你的能力，並排出順序。">
+<meta property="og:description" content="從 63 張通用能力卡中，探索你的能力，並排出順序。">
 <meta property="og:type" content="website">
 
 <!-- 網站小圖示 -->
@@ -234,7 +234,7 @@ footer { text-align: center; color: var(--muted); font-size: 14px; padding: 24px
 
   <!-- 版權宣告 -->
   <footer>
-    本工具參考 OECD 關鍵能力架構與教育部十二年國教核心素養，<br>
+    本工具參考教育部大專校院就業職能平台（UCAN）職場共通職能架構，<br>
     由莊士勇職涯諮詢師依實務經驗設計。<br>
     本工具供自我探索使用，非標準化心理測驗，結果僅供參考。<br>
     &copy; 2025–2026 GCDF全球職涯發展師 莊士勇 Steven 設計
@@ -242,7 +242,7 @@ footer { text-align: center; color: var(--muted); font-size: 14px; padding: 24px
 </div>
 
 <!-- 載入牌卡資料 -->
-<script src="ability-cards.js"></script>
+<script src="ability-cards.js?v=20261111"></script>
 
 <script>
 // ===== 作答進度 =====
@@ -259,7 +259,7 @@ const CATEGORIES = [...new Set(cards.map(c => c.category))];
 cards.forEach(c => { cardById[c.id] = c; });
 
 // ===== 測驗設定：說明頁文字與指導語 =====
-const INTRO_DESC = '從 64 張通用能力卡中，<br>探索你的能力';
+const INTRO_DESC = '從 63 張通用能力卡中，<br>探索你的能力';
 const DEFAULT_MODE = 'want';
 const MODES = {
   want: { html: '請選出你<strong>最想擁有</strong>的能力', text: '請選出你最想擁有的能力' },
@@ -622,7 +622,7 @@ function categoryTally() {
 
 // ===== 產生結果圖片（在手機上畫，不經過網路） =====
 function drawResultImage() {
-  const W = 1080, PAD = 60, ROW = 128, TOP_ROW = 156, GAP = 16, DIV = 44, HEAD = 280, FOOT = 120, TALLY = 330;
+  const W = 1080, PAD = 60, ROW = 128, TOP_ROW = 156, GAP = 16, DIV = 44, HEAD = 280, FOOT = 120, TALLY = 390; // 各類別張數：9 類排成兩欄共 5 列
   const ids = rankedIds();
   const n = ids.length;
   let H = HEAD + FOOT + TALLY;
