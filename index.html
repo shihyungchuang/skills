@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>十大通用能力探索</title>
+<title>我的十大通用能力探索</title>
 
 <!-- 基本資訊 -->
 <meta name="version" content="3.0">
@@ -12,7 +12,7 @@
 <meta name="keywords" content="通用能力, 能力強項, 職涯發展, 自我探索, 生涯規劃">
 
 <!-- 社群分享設定 -->
-<meta property="og:title" content="十大通用能力探索">
+<meta property="og:title" content="我的十大通用能力探索">
 <meta property="og:description" content="從 63 張通用能力卡中，探索你的能力，並排出順序。">
 <meta property="og:type" content="website">
 
@@ -222,7 +222,7 @@ footer { text-align: center; color: var(--muted); font-size: 14px; padding: 24px
 
 <div class="wrap">
   <header>
-    <h1>十大通用能力探索</h1>
+    <h1>我的十大通用能力探索</h1>
     <ol class="steps" id="steps">
       <li data-step="pick">1 挑選</li>
       <li data-step="sort">2 排序</li>
@@ -259,7 +259,7 @@ const CATEGORIES = [...new Set(cards.map(c => c.category))];
 cards.forEach(c => { cardById[c.id] = c; });
 
 // ===== 測驗設定：說明頁文字與指導語 =====
-const INTRO_DESC = '從 63 張通用能力卡中，<br>探索你的能力';
+const INTRO_DESC = '從 63 張能力卡中，<br>找出屬於你的十大能力<br><small>（能力卡對應 UCAN 九大共通職能）</small>';
 const DEFAULT_MODE = 'want';
 const MODES = {
   want: { html: '請選出你<strong>最想擁有</strong>的能力', text: '請選出你最想擁有的能力' },
@@ -783,13 +783,13 @@ function resultText() {
 function showImage() {
   const url = drawResultImage().toDataURL('image/png');
   const d = new Date(state.finishedAt);
-  const name = `十大通用能力_${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}.png`;
+  const name = `我的十大通用能力_${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}.png`;
 
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   overlay.innerHTML = `
     <div class="panel">
-      <img src="${url}" alt="十大通用能力排序結果">
+      <img src="${url}" alt="我的十大通用能力排序結果">
       <p class="notice">手機請<strong>長按圖片</strong>儲存到相簿</p>
       <div class="btn-row">
         <a class="btn" href="${url}" download="${name}" style="text-decoration:none">下載圖片</a>
